@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peoria Clear Guard | XPEL Ultimate Protection</title>
+    <style>
+        /* --- LUXURY AUTOMOTIVE THEME VARIABLES --- */
+        :root {
+            --primary-blue: #0056b3; /* Richer Blue */
+            --bright-blue: #007bff; /* Highlight Blue */
+            --accent-silver: #e0e0e0;
+            --xpel-yellow: #fec52e; /* XPEL Brand Color */
+            --bg-dark: #050505;
+            --bg-panel: #121212;
+            --text-main: #ffffff;
+            --text-muted: #b0b0b0;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: white; }
+        p { color: var(--text-muted); font-weight: 300; font-size: 1rem; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* --- ANIMATION CLASSES --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: var(--glass-border);
+        }
+        
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+        .brand span { color: var(--bright-blue); font-size: 0.9rem; letter-spacing: 4px; }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { font-size: 0.8rem; font-weight: 600; color: #ddd; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--bright-blue); }
+        
+        .cta-btn {
+            padding: 12px 30px;
+            background: var(--primary-blue);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cta-btn:hover { background: var(--bright-blue); transform: translateY(-2px); }
+        
+        .pulse-btn { animation: pulse 2s infinite; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(5,5,5,1) 100%), 
+                        url('https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-content { max-width: 900px; z-index: 2; }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: linear-gradient(to right, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-content h2 {
+            font-size: 1.2rem;
+            color: var(--bright-blue);
+            margin-bottom: 40px;
+            font-weight: 500;
+            letter-spacing: 3px;
+        }
+
+        /* --- SECTIONS GENERIC --- */
+        .section-padding { padding: 100px 5% 80px; }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 80px; height: 3px; 
+            background: var(--primary-blue); margin: 20px auto 0;
+        }
+
+        /* --- ABOUT & XPEL GRID --- */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-box h3 { color: var(--xpel-yellow); margin-bottom: 15px; font-size: 1.5rem; }
+        .text-box { padding: 20px; }
+
+        /* --- NEW BENEFITS SECTION (Added Content) --- */
+        .benefits-section { background: #0a0a0a; }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: var(--bg-panel);
+            padding: 40px 30px;
+            border: var(--glass-border);
+            border-top: 3px solid transparent;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-top-color: var(--bright-blue);
+            box-shadow: 0 15px 30px rgba(0, 123, 255, 0.1);
+        }
+
+        .b-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .benefit-card h4 { font-size: 1.1rem; margin-bottom: 15px; color: white; }
+        
+        /* --- PROCESS SECTION --- */
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 300px;
+            background: #0f0f0f;
+            padding: 40px;
+            border-left: 1px solid #333;
+            position: relative;
+        }
+
+        .step-num {
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.03);
+            position: absolute;
+            top: 0; right: 20px;
+            line-height: 1;
+        }
+
+        .note-alert {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #ddd;
+            background: rgba(254, 197, 46, 0.1);
+            border-left: 3px solid var(--xpel-yellow);
+            padding: 15px;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .g-item { height: 250px; background: #222; overflow: hidden; }
+        .g-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; }
+        .g-item:hover img { transform: scale(1.05); opacity: 1; }
+
+        /* --- CONTACT & DATA FORM --- */
+        .contact-section { background: linear-gradient(to bottom, #050505, #000); }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-panel);
+            border: var(--glass-border);
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 60px;
+            background: linear-gradient(135deg, #0a0a0a, #151515);
+            border-right: 1px solid #222;
+        }
+
+        .c-item { margin-bottom: 35px; }
+        .c-item h5 { color: var(--bright-blue); margin-bottom: 8px; font-size: 0.9rem; letter-spacing: 2px; }
+        .c-item p { color: white; margin: 0; font-size: 1.1rem; }
+
+        .data-form {
+            flex: 1.5;
+            min-width: 350px;
+            padding: 60px;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: #080808;
+            border: 1px solid #333;
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .form-input:focus { border-color: var(--bright-blue); outline: none; background: #000; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .submit-btn:hover { background: var(--bright-blue); box-shadow: 0 0 20px rgba(0, 123, 255, 0.4); }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* --- MOBILE --- */
+        @media(max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .split-grid, .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .nav-links { display: none; }
+            .contact-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand">
+            <span>PEORIA</span>
+            CLEAR GUARD
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+        <a href="#contact" class="cta-btn pulse-btn">Get A Quote</a>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content reveal active">
+            <h1>XPEL Ultimate<br>Paint Protection Film</h1>
+            <h2>World Class Protection for Your Investment</h2>
+            <a href="#contact" class="cta-btn" style="padding: 15px 40px; font-size: 1rem;">Start Your Upgrade</a>
+        </div>
+    </header>
+
+    <section id="about" class="section-padding">
+        <div class="split-grid">
+            <div class="text-box reveal">
+                <h2>About Us</h2>
+                <div style="height: 3px; width: 50px; background: var(--primary-blue); margin: 20px 0;"></div>
+                <p>We are a trusted and certified XPEL installer. We use only high quality film/equipment. We stand by our product and installation. When you choose us, be assured of quality and guarantee that comes with our name.</p>
+            </div>
+            <div class="text-box reveal" style="background: var(--bg-panel); border-left: 4px solid var(--xpel-yellow);">
+                <h3>Why XPEL?</h3>
+                <p>We use cutting edge self-healing technology and meticulously tested material by XPEL. This enables us to protect your car from road debris, salt-specks, tar, bugs, and more.</p>
+                <br>
+                <p>XPEL is a film proven to perform under harshest conditions that goes over a portion of vehicle you choose. This has the ability to protect your investment and does not turn yellow, bend, or fold.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits" class="section-padding benefits-section">
+        <h2 class="section-title reveal">The Ultimate Upgrade</h2>
+        <div class="benefits-grid reveal">
+            <div class="benefit-card">
+                <span class="b-icon">✨</span>
+                <h4>Invisible Armor</h4>
+                <p>Our high-quality film provides an invisible layer of protection, ensuring your car's original paintwork remains untouched while shielding it from road debris, stone chips, and harsh weather.</p>
+            </div>
+            <div class="benefit-card">
+                <span class="b-icon">🛡️</span>
+                <h4>Self-Healing Technology</h4>
+                <p>Say goodbye to minor scratches! Our film features self-healing properties that make small scratches disappear, maintaining your car's flawless appearance without any extra effort.</p>
+            </div>
+            <div class="benefit-card">
+                <span class="b-icon">💎</span>
+                <h4>Long-Lasting Shine</h4>
+                <p>Preserve that showroom shine! Our Paint Protection Film is engineered to resist yellowing and maintain its optical clarity, ensuring your car continues to turn heads wherever you go.</p>
+            </div>
+            <div class="benefit-card">
+                <span class="b-icon">💧</span>
+                <h4>Easy Maintenance</h4>
+                <p>Cleaning your car has never been easier! The smooth surface of our film repels dirt, making it a breeze to maintain that polished look with minimal effort.</p>
+            </div>
+            <div class="benefit-card">
+                <span class="b-icon">📈</span>
+                <h4>Preserve Resale Value</h4>
+                <p>Protecting your car is an investment in its resale value. When you upgrade, you'll enjoy a higher resale price thanks to the immaculate condition of your vehicle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="section-padding">
+        <h2 class="section-title reveal">Our Process</h2>
+        <div class="process-container reveal">
+            <div class="process-step">
+                <div class="step-num">01</div>
+                <h4>Appointment</h4>
+                <p>During car drop off we perform full vehicle/body inspection and odometer check. We want you to feel secure leaving your car with us.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">02</div>
+                <h4>Installation</h4>
+                <p>We pressure wash and clay bar prep the area. Film application happens the following day with a final quality check.</p>
+                <div class="note-alert">Note: Visible liquid/gel bubbles are normal and will evaporate during curing.</div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">03</div>
+                <h4>Pick-Up</h4>
+                <p>We ensure you are satisfied with our work before you drive away.</p>
+                <div class="note-alert" style="border-color: var(--primary-blue); background: rgba(0, 86, 179, 0.1);">
+                    Please restrain from car washing for 14 days to allow full curing (7-10 days).
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section-padding" style="background: #080808;">
+        <h2 class="section-title reveal">Gallery</h2>
+        <div class="gallery-grid reveal">
+            <div class="g-item"><img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=600&q=80" alt="Work 1"></div>
+            <div class="g-item"><img src="https://images.unsplash.com/photo-1493238792015-1643692881fd?auto=format&fit=crop&w=600&q=80" alt="Work 2"></div>
+            <div class="g-item"><img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=600&q=80" alt="Work 3"></div>
+            <div class="g-item"><img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=600&q=80" alt="Work 4"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding contact-section">
+        <h2 class="section-title reveal">Get Protected</h2>
+        
+        <div class="contact-container reveal">
+            <div class="contact-info">
+                <div class="c-item">
+                    <h5>Address</h5>
+                    <p>25294 Spring Creek Rd<br>Washington, IL 61571</p>
+                </div>
+                <div class="c-item">
+                    <h5>Direct Line</h5>
+                    <p>309-857-2779</p>
+                </div>
+                <div class="c-item">
+                    <h5>Email</h5>
+                    <p>peoriaclearguard@gmail.com</p>
+                </div>
+                <div class="c-item" style="margin-top: 40px;">
+                    <h5>Follow Us</h5>
+                    <p style="font-size: 0.9rem; color: #888;">FB: Peoria Clear Guard<br>IG: peoria_clear-guard</p>
+                </div>
+            </div>
+
+            <div class="data-form">
+                <h3 style="margin-bottom: 30px;">Request a Quote</h3>
+                <form>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" class="form-input" required placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number *</label>
+                            <input type="tel" class="form-input" required placeholder="(309) 000-0000">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Email ID *</label>
+                            <input type="email" class="form-input" required placeholder="example@email.com">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Address</label>
+                            <input type="text" class="form-input" placeholder="Your City or Street Address">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Notes / Vehicle Details</label>
+                            <textarea class="form-input" rows="4" placeholder="Year, Make, Model, and specific services needed..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Information</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Peoria Clear Guard. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal();
+    </script>
+</body>
+</html>
