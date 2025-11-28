@@ -46,14 +46,24 @@
 
         /* --- 3. NAVIGATION --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 100px; padding: 0 5%;
+            position: fixed; top: 0; width: 100%; 
+            height: 130px; /* Increased Height for bigger logo */
+            padding: 0 5%;
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.03); z-index: 1000;
+            transition: 0.3s;
         }
 
-        .logo-container img { height: 98px; width: auto; filter: drop-shadow(0 0 10px rgba(0,119,255,0.2)); transition: 0.4s var(--ease); }
-        .logo-container:hover img { transform: scale(1.05); filter: drop-shadow(0 0 20px var(--secondary)); }
+        .logo-container img { 
+            height: 130px; /* Bigger Logo */
+            width: auto; 
+            /* Added brightness and contrast to make it bold and clear */
+            filter: drop-shadow(0 0 15px rgba(0,119,255,0.4)) brightness(1.2) contrast(1.1); 
+            transition: 0.4s var(--ease); 
+        }
+        
+        .logo-container:hover img { transform: scale(1.05); filter: drop-shadow(0 0 25px var(--secondary)); }
 
         .nav-menu { display: flex; gap: 40px; }
         .nav-link { font-size: 0.8rem; font-weight: 600; letter-spacing: 1.5px; position: relative; color: #ccc; }
@@ -245,7 +255,8 @@
         .close-lb { position: absolute; top: 30px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
 
         @media(max-width: 900px) {
-            nav { padding: 0 20px; height: 80px; }
+            nav { padding: 0 20px; height: 100px; } /* Increased mobile height slightly */
+            .logo-container img { height: 90px; }
             .nav-menu { display: none; }
             .hero-title { font-size: 3rem; }
             .about-wrapper, .contact-glass { flex-direction: column; }
@@ -277,7 +288,7 @@
         <div class="hero-overlay"></div>
 
         <div class="hero-content">
-            <h1 class="hero-title">XPEL ULTIMATE ARMOR</h1>
+            <h1 class="hero-title">Peoria Clear Guard</h1>
             <h2 class="hero-sub">PRESERVE PERFECTION</h2>
             <button class="btn-glow" style="font-size: 1rem; padding: 15px 40px;" onclick="document.getElementById('gallery').scrollIntoView()">VIEW SHOWCASE</button>
         </div>
@@ -383,8 +394,7 @@
                 <div class="scroll-card" onclick="openLightbox(this)"><img src="m14.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
                 <div class="scroll-card" onclick="openLightbox(this)"><img src="m15.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
                 <div class="scroll-card" onclick="openLightbox(this)"><img src="m16.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-              
-				<div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
+                <div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
             </div>
         </div>
     </section>
@@ -400,9 +410,9 @@
                 <span class="pkg-sub">Essential Coverage</span>
                 <ul class="pkg-list">
                     <li><i class="fa-solid fa-check"></i> Partial Hood (24")</li>
-                    <li><i class="fa-solid fa-check"></i> Partial Fenders</li>
+                    <li><i class="fa-solid fa-check"></i> Partial Front Fenders</li>
                     <li><i class="fa-solid fa-check"></i> Front Bumper</li>
-                    <li><i class="fa-solid fa-check"></i> Side Mirrors</li>
+                    <li><i class="fa-solid fa-check"></i>  Headlights & Mirrors </li>
                 </ul>
                 <button class="btn-glow" style="width:100%; margin-top:20px;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
@@ -410,11 +420,11 @@
                 <h3 class="pkg-title">FULL FRONT</h3>
                 <span class="pkg-sub" style="color:var(--secondary)">Recommended</span>
                 <ul class="pkg-list">
-                    <li><i class="fa-solid fa-check"></i> Full Hood (Wrapped)</li>
-                    <li><i class="fa-solid fa-check"></i> Full Fenders</li>
+                    <li><i class="fa-solid fa-check"></i> Full Hood </li>
+                    <li><i class="fa-solid fa-check"></i> Full Front Fenders</li>
                     <li><i class="fa-solid fa-check"></i> Front Bumper</li>
                     <li><i class="fa-solid fa-check"></i> Headlights & Mirrors</li>
-                    <li><i class="fa-solid fa-check"></i> 10-Year Warranty</li>
+                    <li><i class="fa-solid fa-check"></i> A-Pillers</li>
                 </ul>
                 <button class="btn-glow" style="width:100%; margin-top:20px; background:var(--secondary); color:black;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
@@ -449,8 +459,8 @@
                     <p>peoriaclearguard@gmail.com</p>
                 </div>
                 <div class="socials" style="justify-content: flex-start;">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/peoriaclear.guard"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/peoria_clear_guard/"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
 
