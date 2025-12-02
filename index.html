@@ -133,25 +133,34 @@
         .f-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 20px; }
         .feature-card h4 { font-size: 1.2rem; margin-bottom: 10px; }
 
-        /* --- 8. INFINITE MOVING GALLERY --- */
+        /* --- 8. INFINITE MOVING GALLERY (ENHANCED) --- */
         .gallery-scroll-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            overflow: hidden; /* Hide scrollbar */
+            gap: 25px;
+            overflow: hidden; 
             background: #000;
             padding: 50px 0;
+            position: relative;
         }
+        
+        /* Fade effect on edges */
+        .gallery-scroll-container::before, .gallery-scroll-container::after {
+            content: ''; position: absolute; width: 150px; height: 100%; top: 0; z-index: 10; pointer-events: none;
+        }
+        .gallery-scroll-container::before { left: 0; background: linear-gradient(to right, #000, transparent); }
+        .gallery-scroll-container::after { right: 0; background: linear-gradient(to left, #000, transparent); }
 
         .scroll-track {
             display: flex;
             gap: 20px;
-            width: max-content; /* Ensure it stretches */
+            width: max-content; 
         }
 
         /* Animation Classes */
-        .scroll-left { animation: scrollLeft 60s linear infinite; }
-        .scroll-right { animation: scrollRight 60s linear infinite; }
+        /* Slower speeds for better viewing of large collection */
+        .scroll-left { animation: scrollLeft 80s linear infinite; }
+        .scroll-right { animation: scrollRight 90s linear infinite; }
 
         /* The Individual Image Card */
         .scroll-card {
@@ -163,28 +172,45 @@
             flex-shrink: 0;
             border: 1px solid #222;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s ease-out;
+            /* Cinematic Effect: Slightly grayscale until hover */
+            filter: grayscale(80%) brightness(0.7);
         }
 
-        .scroll-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .scroll-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.7s; }
         
         .scroll-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.3);
             display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: 0.3s;
         }
-        .scroll-overlay i { font-size: 2rem; color: var(--secondary); }
+        .scroll-overlay i { font-size: 2rem; color: var(--secondary); transform: scale(0.5); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         /* Hover Effects */
+        .scroll-card:hover {
+            filter: grayscale(0%) brightness(1); /* Full color on hover */
+            border-color: var(--secondary);
+            transform: scale(1.02);
+            z-index: 5;
+            box-shadow: 0 10px 40px rgba(0, 195, 255, 0.2);
+        }
+
         .scroll-card:hover img { transform: scale(1.1); }
         .scroll-card:hover .scroll-overlay { opacity: 1; }
+        .scroll-card:hover .scroll-overlay i { transform: scale(1); }
         
-        /* PAUSE ON HOVER (Crucial for usability) */
+        /* PAUSE ON HOVER */
         .gallery-scroll-container:hover .scroll-track { animation-play-state: paused; }
 
-        @keyframes scrollLeft { to { transform: translateX(-50%); } }
-        @keyframes scrollRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        @keyframes scrollLeft { 
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+        @keyframes scrollRight { 
+            0% { transform: translateX(-50%); } 
+            100% { transform: translateX(0); } 
+        }
 
         /* --- 9. PACKAGES --- */
         .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
@@ -371,30 +397,8 @@
         </div>
 
         <div class="gallery-scroll-container reveal">
-            <div class="scroll-track scroll-left">
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="fer1.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="fer2.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="fer3.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="fer4.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m2.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m3.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m4.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m5.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m6.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m7.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m8.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m9.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m10.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m11.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-            </div>
-
-            <div class="scroll-track scroll-right">
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m12.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m14.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m15.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-card" onclick="openLightbox(this)"><img src="m16.jpg"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-                <div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>
-            </div>
+            <div class="scroll-track scroll-left" id="track-top"></div>
+            <div class="scroll-track scroll-right" id="track-bottom"></div>
         </div>
     </section>
 
@@ -508,7 +512,67 @@
     </div>
 
     <script>
-        // Scroll Reveal
+        // --- 1. DYNAMIC GALLERY LOADER (AUTO ADDS 33 IMAGES) ---
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Define existing legacy images
+            const oldImages = [
+                'fer1.jpg', 'fer2.jpg', 'fer3.jpg', 'fer4.jpg',
+                'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 
+                'm7.jpg', 'm8.jpg', 'm9.jpg', 'm10.jpg', 'm11.jpg', 
+                'm12.jpg', 'm14.jpg', 'm15.jpg', 'm16.jpg'
+            ];
+
+            // 2. Automatically generate 1.jpg to 33.jpg
+            const newImages = [];
+            for (let i = 1; i <= 33; i++) {
+                newImages.push(`${i}.jpg`);
+            }
+
+            // 3. Combine and Shuffle
+            const allImages = [...oldImages, ...newImages];
+            
+            // Random Shuffle function to make it look different every time
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            const shuffled = shuffle(allImages);
+
+            // 4. Split into Top and Bottom Tracks
+            const half = Math.ceil(shuffled.length / 2);
+            const topSet = shuffled.slice(0, half);
+            const bottomSet = shuffled.slice(half);
+
+            const trackTop = document.getElementById('track-top');
+            const trackBottom = document.getElementById('track-bottom');
+
+            // 5. Function to build HTML cards
+            function createCard(imgName) {
+                return `
+                    <div class="scroll-card" onclick="openLightbox(this)">
+                        <img src="${imgName}" onerror="this.src='Luxury.png'"> <div class="scroll-overlay">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 6. Populate the tracks (Doubled to ensure seamless infinite scroll)
+            // We append the list twice so there are no gaps when scrolling
+            const topHTML = topSet.map(img => createCard(img)).join('');
+            const bottomHTML = bottomSet.map(img => createCard(img)).join('');
+
+            trackTop.innerHTML = topHTML + topHTML; 
+            trackBottom.innerHTML = bottomHTML + bottomHTML; 
+        });
+
+
+        // --- 2. SCROLL REVEAL & LIGHTBOX ---
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
                 if(el.getBoundingClientRect().top < window.innerHeight - 100) {
@@ -522,7 +586,9 @@
         const lbImg = document.getElementById('lb-img');
         
         function openLightbox(el) {
-            lbImg.src = el.querySelector('img').src;
+            // Get source from the clicked image
+            const src = el.querySelector('img').src;
+            lbImg.src = src;
             lightbox.classList.add('active');
         }
         function closeLightbox() {
