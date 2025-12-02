@@ -133,16 +133,16 @@
         .f-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 20px; }
         .feature-card h4 { font-size: 1.2rem; margin-bottom: 10px; }
 
-        /* --- 8. INFINITE MOVING GALLERY (ENHANCED) --- */
+        /* --- 8. INFINITE MOVING GALLERY (ENHANCED BORDERS) --- */
         .gallery-scroll-container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px; /* Increased gap for the new borders */
             overflow: hidden; 
             background: #000;
             padding: 50px 0;
             position: relative;
-            min-height: 500px; /* Ensure space is held if images load slowly */
+            min-height: 500px; 
         }
         
         .gallery-scroll-container::before, .gallery-scroll-container::after {
@@ -153,23 +153,32 @@
 
         .scroll-track {
             display: flex;
-            gap: 20px;
+            gap: 25px; /* Increased gap here too */
             width: max-content; 
+            padding: 10px 0; /* Padding for hover glow space */
         }
 
         .scroll-left { animation: scrollLeft 80s linear infinite; }
         .scroll-right { animation: scrollRight 90s linear infinite; }
 
+        /* --- UPDATED CARD STYLING --- */
         .scroll-card {
             width: 400px;
             height: 250px;
             position: relative;
-            border-radius: 4px;
+            border-radius: 6px; /* Slightly rounder corners */
             overflow: hidden;
             flex-shrink: 0;
-            border: 1px solid #222;
             cursor: pointer;
-            transition: 0.4s ease-out;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            
+            /* The new "Premium Frame" look */
+            border: 2px solid #1a1a1a; /* Thicker, dark border */
+            /* Inset shadow gives it depth, outer shadow lifts it */
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.8), 
+                0 5px 15px rgba(0,0,0,0.5); 
+
             filter: grayscale(80%) brightness(0.7);
         }
 
@@ -177,18 +186,25 @@
         
         .scroll-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4); /* Slightly darker overlay */
             display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: 0.3s;
+            backdrop-filter: blur(2px); /* Subtle blur on hover */
         }
-        .scroll-overlay i { font-size: 2rem; color: var(--secondary); transform: scale(0.5); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .scroll-overlay i { font-size: 2.5rem; color: var(--secondary); transform: scale(0.5); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-shadow: 0 0 15px var(--secondary); }
 
+        /* --- UPDATED HOVER EFFECTS --- */
         .scroll-card:hover {
-            filter: grayscale(0%) brightness(1); 
-            border-color: var(--secondary);
-            transform: scale(1.02);
+            filter: grayscale(0%) brightness(1.1); /* Full color and slightly brighter */
+            border-color: var(--secondary); /* Cyan border color */
+            transform: scale(1.03); 
             z-index: 5;
-            box-shadow: 0 10px 40px rgba(0, 195, 255, 0.2);
+            
+            /* Intense multi-layer neon glow on hover */
+            box-shadow: 
+                inset 0 0 10px rgba(0,0,0,0.5),
+                0 0 15px var(--secondary),
+                0 10px 40px rgba(0, 195, 255, 0.4);
         }
 
         .scroll-card:hover img { transform: scale(1.1); }
@@ -270,7 +286,7 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
         .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 2000; opacity: 0; transition: 0.3s; }
         .lightbox.active { display: flex; opacity: 1; }
-        .lightbox img { max-height: 90vh; max-width: 90vw; border: 1px solid var(--secondary); }
+        .lightbox img { max-height: 90vh; max-width: 90vw; border: 1px solid var(--secondary); box-shadow: 0 0 50px var(--glow); }
         .close-lb { position: absolute; top: 30px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
 
         @media(max-width: 900px) {
@@ -507,31 +523,25 @@
 
     <script>
         // --- SMART IMAGE ERROR HANDLER ---
-        // This function attempts to fix broken images automatically
         function smartImageLoader(img) {
             const currentSrc = img.src;
             
             // 1. If it fails with .jpg, try .JPG (uppercase)
             if (currentSrc.includes('.jpg') && !currentSrc.includes('.jpg_tried')) {
-                // Add a flag so we don't loop forever
-                img.src = currentSrc.replace('.jpg', '.JPG') + "?retry=1";
-                img.setAttribute('data-failed-once', 'true');
+                // Mark as tried so we don't loop infinitely
+                const newSrc = currentSrc.replace('.jpg', '.JPG');
+                img.src = newSrc;
+                // Add a flag to the URL to prevent infinite loops if both fail
+                if (!img.src.includes('?')) { img.src += '?tried=jpg'; }
                 return;
             }
-            
-            // 2. If it fails with .JPG, try .jpeg
-            if (currentSrc.includes('.JPG') && !currentSrc.includes('.JPG_tried')) {
-                img.src = currentSrc.replace('.JPG', '.jpeg') + "?retry=2";
-                return;
-            }
-
-            // 3. If all fails, hide the specific card so the gallery doesn't look broken
+             // 2. If all fails, hide the specific card
             img.closest('.scroll-card').style.display = 'none';
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. Define existing legacy images (Ensure these match your files exactly)
+            // 1. Define existing legacy images
             const oldImages = [
                 'fer1.jpg', 'fer2.jpg', 'fer3.jpg', 'fer4.jpg',
                 'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 
@@ -542,7 +552,6 @@
             // 2. Automatically generate 1.jpg to 33.jpg
             const newImages = [];
             for (let i = 1; i <= 33; i++) {
-                // We start with lowercase .jpg. The 'smartImageLoader' will fix it if it's actually .JPG
                 newImages.push(`${i}.jpg`);
             }
 
@@ -567,11 +576,13 @@
             const trackTop = document.getElementById('track-top');
             const trackBottom = document.getElementById('track-bottom');
 
-            // 5. HTML Builder with ERROR HANDLER
+            // 5. HTML Builder with Smart Error Handler
             function createCard(imgName) {
+                // Resetting retry parameters for fresh load attempt
+                const cleanName = imgName.split('?')[0]; 
                 return `
                     <div class="scroll-card" onclick="openLightbox(this)">
-                        <img src="${imgName}" onerror="smartImageLoader(this)">
+                        <img src="${cleanName}" onerror="smartImageLoader(this)">
                         <div class="scroll-overlay">
                             <i class="fa-solid fa-eye"></i>
                         </div>
