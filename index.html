@@ -142,9 +142,9 @@
             background: #000;
             padding: 50px 0;
             position: relative;
+            min-height: 500px; /* Ensure space is held if images load slowly */
         }
         
-        /* Fade effect on edges */
         .gallery-scroll-container::before, .gallery-scroll-container::after {
             content: ''; position: absolute; width: 150px; height: 100%; top: 0; z-index: 10; pointer-events: none;
         }
@@ -157,12 +157,9 @@
             width: max-content; 
         }
 
-        /* Animation Classes */
-        /* Slower speeds for better viewing of large collection */
         .scroll-left { animation: scrollLeft 80s linear infinite; }
         .scroll-right { animation: scrollRight 90s linear infinite; }
 
-        /* The Individual Image Card */
         .scroll-card {
             width: 400px;
             height: 250px;
@@ -173,7 +170,6 @@
             border: 1px solid #222;
             cursor: pointer;
             transition: 0.4s ease-out;
-            /* Cinematic Effect: Slightly grayscale until hover */
             filter: grayscale(80%) brightness(0.7);
         }
 
@@ -187,9 +183,8 @@
         }
         .scroll-overlay i { font-size: 2rem; color: var(--secondary); transform: scale(0.5); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-        /* Hover Effects */
         .scroll-card:hover {
-            filter: grayscale(0%) brightness(1); /* Full color on hover */
+            filter: grayscale(0%) brightness(1); 
             border-color: var(--secondary);
             transform: scale(1.02);
             z-index: 5;
@@ -200,7 +195,6 @@
         .scroll-card:hover .scroll-overlay { opacity: 1; }
         .scroll-card:hover .scroll-overlay i { transform: scale(1); }
         
-        /* PAUSE ON HOVER */
         .gallery-scroll-container:hover .scroll-track { animation-play-state: paused; }
 
         @keyframes scrollLeft { 
@@ -512,10 +506,32 @@
     </div>
 
     <script>
-        // --- 1. DYNAMIC GALLERY LOADER (AUTO ADDS 33 IMAGES) ---
+        // --- SMART IMAGE ERROR HANDLER ---
+        // This function attempts to fix broken images automatically
+        function smartImageLoader(img) {
+            const currentSrc = img.src;
+            
+            // 1. If it fails with .jpg, try .JPG (uppercase)
+            if (currentSrc.includes('.jpg') && !currentSrc.includes('.jpg_tried')) {
+                // Add a flag so we don't loop forever
+                img.src = currentSrc.replace('.jpg', '.JPG') + "?retry=1";
+                img.setAttribute('data-failed-once', 'true');
+                return;
+            }
+            
+            // 2. If it fails with .JPG, try .jpeg
+            if (currentSrc.includes('.JPG') && !currentSrc.includes('.JPG_tried')) {
+                img.src = currentSrc.replace('.JPG', '.jpeg') + "?retry=2";
+                return;
+            }
+
+            // 3. If all fails, hide the specific card so the gallery doesn't look broken
+            img.closest('.scroll-card').style.display = 'none';
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. Define existing legacy images
+            // 1. Define existing legacy images (Ensure these match your files exactly)
             const oldImages = [
                 'fer1.jpg', 'fer2.jpg', 'fer3.jpg', 'fer4.jpg',
                 'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 
@@ -526,13 +542,13 @@
             // 2. Automatically generate 1.jpg to 33.jpg
             const newImages = [];
             for (let i = 1; i <= 33; i++) {
+                // We start with lowercase .jpg. The 'smartImageLoader' will fix it if it's actually .JPG
                 newImages.push(`${i}.jpg`);
             }
 
             // 3. Combine and Shuffle
             const allImages = [...oldImages, ...newImages];
             
-            // Random Shuffle function to make it look different every time
             function shuffle(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -551,19 +567,19 @@
             const trackTop = document.getElementById('track-top');
             const trackBottom = document.getElementById('track-bottom');
 
-            // 5. Function to build HTML cards
+            // 5. HTML Builder with ERROR HANDLER
             function createCard(imgName) {
                 return `
                     <div class="scroll-card" onclick="openLightbox(this)">
-                        <img src="${imgName}" onerror="this.src='Luxury.png'"> <div class="scroll-overlay">
+                        <img src="${imgName}" onerror="smartImageLoader(this)">
+                        <div class="scroll-overlay">
                             <i class="fa-solid fa-eye"></i>
                         </div>
                     </div>
                 `;
             }
 
-            // 6. Populate the tracks (Doubled to ensure seamless infinite scroll)
-            // We append the list twice so there are no gaps when scrolling
+            // 6. Populate (Doubled for infinite scroll)
             const topHTML = topSet.map(img => createCard(img)).join('');
             const bottomHTML = bottomSet.map(img => createCard(img)).join('');
 
@@ -571,8 +587,7 @@
             trackBottom.innerHTML = bottomHTML + bottomHTML; 
         });
 
-
-        // --- 2. SCROLL REVEAL & LIGHTBOX ---
+        // --- SCROLL REVEAL & LIGHTBOX ---
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
                 if(el.getBoundingClientRect().top < window.innerHeight - 100) {
@@ -581,12 +596,10 @@
             });
         });
 
-        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lb-img');
         
         function openLightbox(el) {
-            // Get source from the clicked image
             const src = el.querySelector('img').src;
             lbImg.src = src;
             lightbox.classList.add('active');
