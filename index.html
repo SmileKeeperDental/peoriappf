@@ -44,7 +44,7 @@
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 4px; }
 
-        /* --- SMOKE PARTICLE CSS (DENSE & CLEAR) --- */
+        /* --- SMOKE PARTICLE CSS --- */
         .smoke-particle {
             position: absolute;
             width: 20px;
@@ -100,11 +100,17 @@
         }
         .hero-sub { color: var(--secondary); font-size: 1.1rem; letter-spacing: 5px; margin-bottom: 40px; animation: fadeUp 1.2s var(--ease); text-shadow: 0 0 20px rgba(0,0,0,1); }
 
-        /* --- 5. MARQUEE --- */
+        /* --- 5. MARQUEE (FIXED ANIMATION) --- */
         .marquee-wrap { background: #000; border-top: 1px solid #111; border-bottom: 1px solid #111; padding: 20px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 2; }
-        .marquee { display: inline-block; animation: slide 25s linear infinite; }
+        .marquee { display: inline-block; animation: marqueeSlide 20s linear infinite; }
         .brand { display: inline-block; margin: 0 50px; color: #333; font-family: 'Orbitron'; font-weight: 900; font-size: 1.2rem; transition: 0.3s; }
         .marquee:hover .brand { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
+        
+        /* THE MISSING ANIMATION FIXED HERE */
+        @keyframes marqueeSlide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
         
         /* --- 6. GLOBAL SECTION STYLES --- */
         .section-pad { padding: 120px 8%; position: relative; }
@@ -242,7 +248,7 @@
         .lightbox img { max-height: 90vh; max-width: 90vw; border: 1px solid var(--secondary); }
         .close-lb { position: absolute; top: 30px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
 
-        /* --- UPDATED FLOATING CALL BUTTON --- */
+        /* --- FLOATING CALL BUTTON --- */
         .fab {
             position: fixed; bottom: 30px; right: 30px;
             width: 60px; height: 60px;
@@ -264,7 +270,7 @@
             color: #000;
         }
         
-        /* --- 16. FOOTER SOCIALS (RESIZED) --- */
+        /* --- 16. FOOTER SOCIALS & CONTACT ICONS (RESIZED) --- */
         .socials { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
         .socials a { 
             width: 50px; /* Increased from 40px */
@@ -274,7 +280,7 @@
             display: flex; align-items: center; justify-content: center; 
             transition: 0.3s;
             font-size: 1.5rem; /* Explicitly larger icon size */
-            color: #ccc; /* Ensure visible color */
+            color: #ccc;
         }
         .socials a:hover { border-color: var(--secondary); color: var(--secondary); }
 
