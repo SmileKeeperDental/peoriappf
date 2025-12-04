@@ -625,11 +625,14 @@
         <img id="lb-img" src="">
     </div>
 
-    <script>
+
+
+  <script>
         // --- 1. EMAILJS CONFIGURATION ---
         (function() {
-            // *** IMPORTANT: REPLACE 'YOUR_PUBLIC_KEY' WITH YOUR ACTUAL KEY ***
-            emailjs.init("lCtxKqA_Bsgw4sFBc");
+            // STEP 1: Paste your PUBLIC KEY here (It usually starts with "user_" or just random letters)
+            // Example: emailjs.init("user_XyZ123abc");
+            emailjs.init("YOUR_PUBLIC_KEY"); 
         })();
 
         // --- 2. EMAIL SENDING LOGIC ---
@@ -644,7 +647,8 @@
             btn.innerText = 'SENDING...';
             btn.disabled = true;
 
-            // Prepare the parameters (These must match your EmailJS template variables)
+            // Prepare the parameters 
+            // IMPORTANT: These names (from_name, phone, etc) MUST match the {{variables}} in your EmailJS Dashboard Template
             const templateParams = {
                 from_name: document.getElementById('from_name').value,
                 phone: document.getElementById('phone').value,
@@ -654,28 +658,34 @@
             };
 
             // Send Email
-            // *** IMPORTANT: REPLACE SERVICE ID & TEMPLATE ID WITH YOURS ***
-            emailjs.send('service_z1ywmzm', 'template_joz8nng', templateParams)
+            // STEP 2: Paste your SERVICE ID and TEMPLATE ID here
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
                 .then(function() {
                     // Success! Hide form and show success message
+                    console.log('SUCCESS!');
                     form.style.display = 'none';
                     successMsg.style.display = 'flex';
                 }, function(error) {
+                    // FAILED: Show the EXACT error to help you debug
                     console.log('FAILED...', error);
                     btn.innerText = 'FAILED. TRY AGAIN.';
                     btn.disabled = false;
-                    alert("System Error: Please call us directly at 309-857-2779.");
+                    
+                    // THIS ALERT WILL TELL YOU WHAT IS WRONG
+                    alert("EmailJS Error: " + JSON.stringify(error)); 
                 });
         });
 
         // --- SMOKE EFFECT ---
         const heroSection = document.querySelector('.hero');
-        heroSection.addEventListener('mousemove', function(e) {
-            const rect = heroSection.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            for (let i = 0; i < 3; i++) { createSmokeParticle(x, y); }
-        });
+        if(heroSection) {
+            heroSection.addEventListener('mousemove', function(e) {
+                const rect = heroSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                for (let i = 0; i < 3; i++) { createSmokeParticle(x, y); }
+            });
+        }
         function createSmokeParticle(baseX, baseY) {
             const smoke = document.createElement('div');
             smoke.className = 'smoke-particle';
@@ -736,10 +746,12 @@
             function createCard(imgName) {
                 return `<div class="scroll-card" onclick="openLightbox(this)"><img src="${imgName}" onerror="smartImageLoader(this)"><div class="scroll-overlay"><i class="fa-solid fa-eye"></i></div></div>`;
             }
-            const topHTML = topSet.map(img => createCard(img)).join('');
-            const bottomHTML = bottomSet.map(img => createCard(img)).join('');
-            trackTop.innerHTML = topHTML + topHTML; 
-            trackBottom.innerHTML = bottomHTML + bottomHTML; 
+            if(trackTop && trackBottom) {
+                const topHTML = topSet.map(img => createCard(img)).join('');
+                const bottomHTML = bottomSet.map(img => createCard(img)).join('');
+                trackTop.innerHTML = topHTML + topHTML; 
+                trackBottom.innerHTML = bottomHTML + bottomHTML; 
+            }
         });
 
         // --- SCROLL REVEAL & LIGHTBOX ---
@@ -757,5 +769,7 @@
         }
         function closeLightbox() { lightbox.classList.remove('active'); }
     </script>
+	
+	
 </body>
 </html>
