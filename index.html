@@ -16,6 +16,7 @@
             --primary: #0077ff;
             --secondary: #00c3ff;
             --accent: #ffb700;
+            --warning: #ff3333;
             --bg-deep: #050505;
             --bg-surface: #0a0a0a;
             --text-main: #ffffff;
@@ -226,6 +227,20 @@
         .c-item { margin-bottom: 30px; }
         .c-item span { color: var(--secondary); font-size: 0.8rem; font-family: 'Orbitron'; letter-spacing: 2px; display: block; margin-bottom: 5px; }
         .c-item p { color: #ccc; font-size: 1.1rem; margin: 0; }
+        
+        .appt-warning {
+            color: var(--warning);
+            font-weight: 700;
+            font-family: 'Orbitron';
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            display: inline-block;
+            border: 1px solid var(--warning);
+            padding: 10px;
+            background: rgba(255, 51, 51, 0.1);
+        }
+
         .c-form { flex: 1.5; padding: 60px; background: rgba(0,0,0,0.2); position: relative; }
         
         /* FORM FIX: PREVENT WHITE BACKGROUND ON AUTOFILL */
@@ -279,29 +294,79 @@
         .lightbox img { max-height: 90vh; max-width: 90vw; border: 1px solid var(--secondary); }
         .close-lb { position: absolute; top: 30px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
 
-        /* --- FLOATING CALL BUTTON --- */
+        /* --- FLOATING CALL BUTTONS (STACKED) --- */
+        .fab-container {
+            position: fixed; bottom: 30px; right: 30px; z-index: 900;
+            display: flex; flex-direction: column; gap: 15px; align-items: center;
+        }
+
         .fab {
-            position: fixed; bottom: 30px; right: 30px;
             width: 60px; height: 60px;
-            background: var(--primary);
+            background: var(--bg-surface);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            z-index: 900;
-            box-shadow: 0 5px 20px rgba(0, 119, 255, 0.5);
-            font-size: 26px;
+            box-shadow: 0 5px 20px rgba(0,0,0, 0.5);
+            font-size: 24px;
             color: white;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             border: 2px solid rgba(255,255,255,0.1);
-        }
-        .fab:hover {
-            transform: scale(1.1) rotate(-10deg);
-            background: var(--secondary);
-            box-shadow: 0 0 30px var(--secondary);
-            color: #000;
+            position: relative;
         }
         
+        /* Specific Styles */
+        .fab-call { background: var(--primary); }
+        .fab-sms { background: #00d26a; } /* Greenish for SMS */
+        .fab-loc { background: #ff3333; } /* Red for Map */
+
+        .fab:hover {
+            transform: scale(1.1) translateX(-5px);
+            color: white;
+            z-index: 901;
+        }
+        
+        .fab-call:hover { background: var(--secondary); box-shadow: 0 0 20px var(--secondary); }
+        .fab-sms:hover { background: #00ff80; box-shadow: 0 0 20px #00ff80; }
+        .fab-loc:hover { background: #ff0000; box-shadow: 0 0 20px #ff0000; }
+
+        /* --- MAP SECTION --- */
+        .map-wrapper {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            background: #111;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        .map-frame { width: 100%; height: 100%; border: 0; filter: grayscale(100%) invert(92%) contrast(83%); opacity: 0.8; transition: 0.3s; }
+        .map-frame:hover { filter: grayscale(0%) invert(0%); opacity: 1; }
+        
+        .map-overlay-text {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.8);
+            color: var(--warning);
+            text-align: center;
+            padding: 15px;
+            font-family: 'Orbitron';
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-top: 1px solid var(--warning);
+        }
+
         /* --- 16. FOOTER SOCIALS & CONTACT ICONS --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
         .socials { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
         .socials a { 
             width: 50px; height: 50px; border-radius: 50%; 
@@ -319,14 +384,24 @@
             .about-image-container { width: 100%; padding-left: 0; margin-top: 30px; }
             .c-info, .c-form { padding: 30px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .form-row { grid-template-columns: 1fr; }
+            .fab-container { right: 20px; bottom: 20px; }
+            .fab { width: 50px; height: 50px; font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="tel:3098572779" class="fab" title="Call Us Now">
-        <i class="fa-solid fa-phone-volume"></i>
-    </a>
+    <div class="fab-container">
+        <a href="tel:3098572779" class="fab fab-call" title="Call Us">
+            <i class="fa-solid fa-phone-volume"></i>
+        </a>
+        <a href="sms:3098572779?body=Hi%20Peoriappf%20Team%2C%20My%20Name%20is%3A%20%0AQuery%3A%20" class="fab fab-sms" title="Send SMS">
+            <i class="fa-solid fa-comment-sms"></i>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=25294+Spring+Creek+Rd+Washington+IL+61571" target="_blank" class="fab fab-loc" title="Get Directions">
+            <i class="fa-solid fa-location-dot"></i>
+        </a>
+    </div>
 
     <nav>
         <div class="logo-container">
@@ -567,7 +642,12 @@
                     <span>EMAIL</span>
                     <p>peoriaclearguard@gmail.com</p>
                 </div>
-                <div class="socials" style="justify-content: flex-start;">
+                
+                <div class="appt-warning">
+                    <i class="fa-solid fa-triangle-exclamation"></i> VISIT SITE ON APPOINTMENT BASIS ONLY
+                </div>
+
+                <div class="socials" style="justify-content: flex-start; margin-top: 30px;">
                     <a href="https://www.facebook.com/peoriaclear.guard" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/peoria_clear_guard/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
@@ -634,9 +714,17 @@
         </div>
     </section>
 
+    <section id="location-map" class="map-wrapper reveal">
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.5332502690226!2d-89.4316904!3d40.697416999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880a5e8f1f1f1f1f%3A0x0!2s25294%20Spring%20Creek%20Rd%2C%20Washington%2C%20IL%2061571!5e0!3m2!1sen!2sus!4v1689000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+        <div class="map-overlay-text">
+            <i class="fa-solid fa-triangle-exclamation" style="color:var(--warning)"></i> VISIT SITE ON APPOINTMENT BASIS ONLY
+        </div>
+    </section>
+
     <footer>
         <span class="font-tech" style="font-size:1.2rem;">PEORIA <span style="color:var(--primary)">CLEAR GUARD</span></span>
-        <p>&copy; 2025 All Rights Reserved.</p>
+        <p style="margin-bottom:0; margin-top:10px;">&copy; 2025 All Rights Reserved.</p>
     </footer>
 
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
