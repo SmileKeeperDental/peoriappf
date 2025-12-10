@@ -34,6 +34,7 @@
             font-family: 'Exo 2', sans-serif;
             line-height: 1.7;
             overflow-x: hidden;
+            perspective: 1000px; /* Essential for 3D effects */
         }
 
         h1, h2, h3, h4, .font-tech { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
@@ -47,19 +48,19 @@
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 4px; }
 
-        /* --- 3. NAVIGATION (UPDATED SIZE & REMOVED LINE) --- */
+        /* --- 3. NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%; 
-            height: 150px; /* Increased Height for larger logo */
+            height: 150px; 
             padding: 0 5%;
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(5, 5, 5, 0.90); backdrop-filter: blur(20px);
-            border-bottom: none; /* REMOVED THE LINE */
+            border-bottom: none; 
             z-index: 1000; transition: 0.3s;
         }
         
         .logo-container img { 
-            height: 140px; /* Increased Logo Size */
+            height: 140px; 
             width: auto; 
             filter: drop-shadow(0 0 15px rgba(0,119,255,0.4)) brightness(1.2) contrast(1.1); 
             transition: 0.4s var(--ease); 
@@ -107,9 +108,13 @@
             font-size: 4rem; line-height: 1.1; margin-bottom: 20px; font-weight: 900;
             text-shadow: 0 5px 30px rgba(0,0,0,0.8);
             background: linear-gradient(to right, #fff, #bbb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: fadeUp 1s var(--ease);
+            /* NEW: Unblur Animation on Load */
+            opacity: 0; animation: unblurText 1.5s var(--ease) forwards; animation-delay: 0.2s;
         }
-        .hero-sub { color: var(--secondary); font-size: 1.1rem; letter-spacing: 5px; margin-bottom: 40px; animation: fadeUp 1.2s var(--ease); text-shadow: 0 0 20px rgba(0,0,0,1); }
+        .hero-sub { 
+            color: var(--secondary); font-size: 1.1rem; letter-spacing: 5px; margin-bottom: 40px; text-shadow: 0 0 20px rgba(0,0,0,1); 
+            opacity: 0; animation: unblurText 1.5s var(--ease) forwards; animation-delay: 0.6s;
+        }
 
         /* --- 5. MARQUEE --- */
         .marquee-wrap { background: #000; border-top: 1px solid #111; border-bottom: 1px solid #111; padding: 20px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 2; }
@@ -136,21 +141,41 @@
         .about-img-main { border-radius: 4px; position: relative; z-index: 2; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .corner-accent { position: absolute; top: 0; left: 0; width: 100px; height: 100px; border-top: 4px solid var(--secondary); border-left: 4px solid var(--secondary); z-index: 1; }
 
-        /* --- 8. FEATURES --- */
+        /* --- 8. FEATURES (WITH 3D TILT) --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card {
+        
+        .tilt-card {
             background: var(--bg-surface); padding: 40px 30px; border-radius: 8px; position: relative;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05); overflow: hidden;
+            /* 3D TILT PROPERTIES */
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s ease-out; /* Super fast response for tilt */
         }
-        .feature-card::before {
+        
+        /* HOLOGRAPHIC GLARE EFFECT */
+        .tilt-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .tilt-card:hover::after { opacity: 1; }
+
+        .tilt-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             transform: scaleX(0); transform-origin: left; transition: 0.4s var(--ease);
         }
-        .feature-card:hover { transform: translateY(-10px); background: #111; }
-        .feature-card:hover::before { transform: scaleX(1); }
-        .f-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 20px; }
-        .feature-card h4 { font-size: 1.2rem; margin-bottom: 10px; }
+        .tilt-card:hover::before { transform: scaleX(1); }
+        
+        .f-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 20px; transform: translateZ(20px); /* Pop out effect */ }
+        .feature-card h4 { font-size: 1.2rem; margin-bottom: 10px; transform: translateZ(10px); }
+        .feature-card p { transform: translateZ(5px); }
 
         /* --- 9. PROCESS --- */
         .process-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
@@ -211,14 +236,14 @@
         .faq-icon { transition: 0.3s; }
         .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--secondary); }
 
-        /* --- 13. PRICING --- */
+        /* --- 13. PRICING (WITH 3D TILT) --- */
         .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .price-card { background: var(--bg-surface); padding: 50px 30px; text-align: center; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; transition: 0.4s; position: relative; }
-        .price-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        /* Reuse tilt-card styles here via class in HTML */
         .price-card.featured { border-color: var(--secondary); background: linear-gradient(160deg, #0a0a0a, #00121a); }
-        .pkg-list { text-align: left; margin-bottom: 30px; border-top: 1px solid #222; padding-top: 20px; }
+        .pkg-list { text-align: left; margin-bottom: 30px; border-top: 1px solid #222; padding-top: 20px; transform: translateZ(5px); }
         .pkg-list li { margin-bottom: 12px; color: #ccc; font-size: 0.95rem; display: flex; align-items: center; }
         .pkg-list i { color: var(--secondary); margin-right: 12px; font-size: 0.8rem; }
+        .pkg-title { transform: translateZ(20px); }
 
         /* --- 14. CONTACT GLASS & SUCCESS MESSAGE --- */
         .contact-section {
@@ -262,10 +287,19 @@
         .success-title { font-family: 'Orbitron'; font-size: 2rem; color: white; margin-bottom: 10px; }
         .success-text { color: #ccc; max-width: 80%; }
 
-        /* --- 15. UTILS --- */
+        /* --- 15. UTILS (UPDATED: BLUR REVEAL) --- */
+        @keyframes unblurText {
+            0% { filter: blur(20px); opacity: 0; transform: translateY(10px); }
+            100% { filter: blur(0); opacity: 1; transform: translateY(0); }
+        }
+        
         @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        
+        /* NEW: Unblur Class for scroll reveal */
+        .reveal-blur { opacity: 0; transition: all 1s ease; }
+        .reveal-blur.active { animation: unblurText 1.2s forwards; }
         
         .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s var(--ease); }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -400,7 +434,7 @@
     </div>
 
     <section id="about" class="section-pad" style="padding-bottom: 0;">
-        <div class="about-wrapper reveal">
+        <div class="about-wrapper reveal-blur">
             <div class="about-content">
                 <span class="section-label">WHO WE ARE</span>
                 <h2 class="section-title-large">PEORIA CLEAR GUARD</h2>
@@ -420,33 +454,33 @@
     </section>
 
     <section id="features" class="section-pad" style="background: #080808; padding-top: 20px; padding-bottom: 20px;">
-        <div class="section-header reveal">
+        <div class="section-header reveal-blur">
             <h2>THE <span>UPGRADE</span></h2>
             <div class="divider"></div>
             <p>Why XPEL Paint Protection Film is the single best investment for your vehicle.</p>
         </div>
-        <div class="feature-grid reveal">
-            <div class="feature-card">
+        <div class="feature-grid reveal-blur">
+            <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-shield-halved"></i></div>
                 <h4>Invisible Armor</h4>
                 <p>High-quality film provides an invisible shield, protecting original paintwork from road debris and stone chips.</p>
             </div>
-            <div class="feature-card">
+            <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                 <h4>Self-Healing</h4>
                 <p>Advanced polymers allow minor scratches to disappear with heat, maintaining a flawless surface.</p>
             </div>
-            <div class="feature-card">
+            <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-gem"></i></div>
                 <h4>Optical Clarity</h4>
                 <p>Engineered to resist yellowing and maintain depth, ensuring your car turns heads for years.</p>
             </div>
-            <div class="feature-card">
+            <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-droplet"></i></div>
                 <h4>Hydrophobic</h4>
                 <p>Smooth surface technology repels water and dirt, making maintenance incredibly easy.</p>
             </div>
-            <div class="feature-card">
+            <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
                 <h4>Resale Value</h4>
                 <p>Protecting your investment ensures a significantly higher resale price when you upgrade.</p>
@@ -455,7 +489,7 @@
     </section>
 
     <section id="process" class="section-pad" style="padding-top: 40px;">
-        <div class="section-header reveal">
+        <div class="section-header reveal-blur">
             <h2>OUR <span>PROCESS</span></h2>
             <div class="divider"></div>
             <p>Precision execution from drop-off to delivery.</p>
@@ -493,7 +527,7 @@
     </section>
 
     <section id="reviews" class="section-pad" style="background: #080808;">
-        <div class="section-header reveal">
+        <div class="section-header reveal-blur">
             <h2>CLIENT <span>VERDICT</span></h2>
             <div class="divider"></div>
         </div>
@@ -526,7 +560,7 @@
     </section>
 
     <section id="gallery" class="section-pad" style="overflow:hidden; padding: 100px 0;">
-        <div class="section-header reveal">
+        <div class="section-header reveal-blur">
             <h2>THE <span>COLLECTION</span></h2>
             <div class="divider"></div>
             <p>A moving showcase of our finest work.</p>
@@ -539,12 +573,12 @@
     </section>
 
     <section id="packages" class="section-pad" style="background: #080808;">
-        <div class="section-header reveal">
+        <div class="section-header reveal-blur">
             <h2>PROTECTION <span>TIERS</span></h2>
             <div class="divider"></div>
         </div>
         <div class="price-grid reveal">
-            <div class="price-card">
+            <div class="tilt-card price-card">
                 <h3 class="pkg-title">PARTIAL FRONT</h3>
                 <span class="pkg-sub">Essential Coverage</span>
                 <ul class="pkg-list">
@@ -555,7 +589,7 @@
                 </ul>
                 <button class="btn-glow" style="width:100%; margin-top:20px;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
-            <div class="price-card featured">
+            <div class="tilt-card price-card featured">
                 <h3 class="pkg-title">FULL FRONT</h3>
                 <span class="pkg-sub" style="color:var(--secondary)">Recommended</span>
                 <ul class="pkg-list">
@@ -567,7 +601,7 @@
                 </ul>
                 <button class="btn-glow" style="width:100%; margin-top:20px; background:var(--secondary); color:black;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
-            <div class="price-card">
+            <div class="tilt-card price-card">
                 <h3 class="pkg-title">FULL BODY</h3>
                 <span class="pkg-sub">Ultimate Armor</span>
                 <ul class="pkg-list">
@@ -640,7 +674,7 @@
     </section>
 
     <section class="section-pad">
-        <div class="section-header reveal">
+        <div class="section-header reveal-blur">
             <h2>COMMON <span>QUESTIONS</span></h2>
             <div class="divider"></div>
         </div>
@@ -757,11 +791,16 @@
         });
 
         // --- 5. SCROLL REVEAL & LIGHTBOX ---
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.reveal').forEach(el => {
-                if(el.getBoundingClientRect().top < window.innerHeight - 100) { el.classList.add('active'); }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-        });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal, .reveal-blur').forEach(el => observer.observe(el));
+
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lb-img');
         function openLightbox(el) {
@@ -770,6 +809,32 @@
             lightbox.classList.add('active');
         }
         function closeLightbox() { lightbox.classList.remove('active'); }
+
+        // --- 6. 3D TILT EFFECT LOGIC ---
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculate rotation (centered)
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5; // Max 5 deg tilt
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                // Update glare position via CSS variables
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+                
+                // Apply 3D transform
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
 
         /* =========================================
            WEBGL FLUID SIMULATION ENGINE
