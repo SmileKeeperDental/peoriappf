@@ -682,7 +682,9 @@
             document.getElementById('mobile-nav').classList.toggle('active');
         }
 
-        (function() { emailjs.init("lCtxKqA_Bsgw4sFBc"); })();
+        (function() { 
+            emailjs.init("AxoRDEC8toiFDgGtX"); 
+        })();
 
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault(); 
@@ -698,7 +700,8 @@
                 car_details: document.getElementById('car_details').value,
                 message: document.getElementById('message').value
             };
-            emailjs.send('service_z1ywmzm', 'template_joz8nng', templateParams)
+            // ⬇️ Service ID Updated Here
+            emailjs.send('service_h61g7lx', 'template_gu33nli', templateParams)
                 .then(function() { form.style.display = 'none'; successMsg.style.display = 'flex'; }, 
                 function(error) { btn.innerText = 'FAILED. TRY AGAIN.'; btn.disabled = false; alert("EmailJS Error: " + JSON.stringify(error)); });
         });
@@ -720,6 +723,7 @@
             }
             if (currentSrc.includes('.JPG') && !currentSrc.includes('.JPG_tried')) {
                 img.src = currentSrc.replace('.JPG', '.jpeg') + "?retry=2";
+                img.setAttribute('data-failed-once', 'true');
                 return;
             }
             img.closest('.scroll-card').style.display = 'none';
