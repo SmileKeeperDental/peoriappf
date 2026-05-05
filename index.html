@@ -235,12 +235,14 @@
         .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--secondary); }
 
         /* --- 13. SERVICES --- */
-        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .price-card { display: flex; flex-direction: column; }
         .price-card.featured { border-color: var(--secondary); background: linear-gradient(160deg, #0a0a0a, #00121a); }
-        .pkg-list { text-align: left; margin-bottom: 30px; border-top: 1px solid #222; padding-top: 20px; transform: translateZ(5px); }
+        .pkg-list { text-align: left; margin-bottom: 30px; border-top: 1px solid #222; padding-top: 20px; transform: translateZ(5px); flex-grow: 1; }
         .pkg-list li { margin-bottom: 12px; color: #ccc; font-size: 0.95rem; display: flex; align-items: center; }
         .pkg-list i { color: var(--secondary); margin-right: 12px; font-size: 0.8rem; }
-        .pkg-title { transform: translateZ(20px); }
+        .pkg-title { transform: translateZ(20px); font-size: 1.3rem; margin-bottom: 5px; }
+        .pkg-sub { color: #888; font-size: 0.9rem; display: block; margin-bottom: 15px; }
 
         /* --- 14. CONTACT GLASS --- */
         .contact-section {
@@ -350,7 +352,8 @@
             <li><a href="#about" class="nav-link">ABOUT</a></li>
             <li><a href="#features" class="nav-link">FEATURES</a></li>
             <li><a href="#gallery" class="nav-link">GALLERY</a></li>
-            <li><a href="#services" class="nav-link">SERVICES</a></li> </ul>
+            <li><a href="#services" class="nav-link">SERVICES</a></li>
+        </ul>
         <button class="btn-glow" onclick="document.getElementById('contact').scrollIntoView()">REQUEST QUOTE</button>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
@@ -360,7 +363,8 @@
             <a href="#about" onclick="toggleMobileMenu()">ABOUT</a>
             <a href="#features" onclick="toggleMobileMenu()">FEATURES</a>
             <a href="#gallery" onclick="toggleMobileMenu()">GALLERY</a>
-            <a href="#services" onclick="toggleMobileMenu()">SERVICES</a> <a href="#contact" onclick="toggleMobileMenu()" style="color:var(--secondary);">REQUEST QUOTE</a>
+            <a href="#services" onclick="toggleMobileMenu()">SERVICES</a>
+            <a href="#contact" onclick="toggleMobileMenu()" style="color:var(--secondary);">REQUEST QUOTE</a>
         </div>
     </div>
 
@@ -538,78 +542,98 @@
             <div class="divider"></div>
         </div>
         
-        <h3 class="pkg-title" style="text-align: center; color: white; margin-bottom: 40px; font-size: 1.5rem; letter-spacing: 2px;">PROTECTION TIERS</h3>
+        <h3 style="text-align: center; color: white; margin-bottom: 40px; font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 2px;">PAINT PROTECTION FILM (PPF)</h3>
         <div class="price-grid reveal">
             <div class="tilt-card price-card">
                 <h3 class="pkg-title">PARTIAL FRONT</h3>
-                <span class="pkg-sub">Essential Coverage</span>
-                <ul class="pkg-list">
+                <span class="pkg-sub" style="margin-bottom: 5px;">Essential Coverage</span>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0;">
                     <li><i class="fa-solid fa-check"></i> Partial Hood (24")</li>
                     <li><i class="fa-solid fa-check"></i> Partial Front Fenders</li>
                     <li><i class="fa-solid fa-check"></i> Front Bumper</li>
-                    <li><i class="fa-solid fa-check"></i>  Headlights & Mirrors </li>
+                    <li><i class="fa-solid fa-check"></i> Headlights & Mirrors</li>
                 </ul>
-                <button class="btn-glow" style="width:100%; margin-top:20px;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
+                <button class="btn-glow" style="width:100%; margin-top:auto;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
+            
             <div class="tilt-card price-card featured">
                 <h3 class="pkg-title">FULL FRONT</h3>
-                <span class="pkg-sub" style="color:var(--secondary)">Recommended</span>
-                <ul class="pkg-list">
+                <span class="pkg-sub" style="color:var(--secondary); margin-bottom: 5px;">Recommended</span>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0;">
                     <li><i class="fa-solid fa-check"></i> Full Hood </li>
                     <li><i class="fa-solid fa-check"></i> Full Front Fenders</li>
                     <li><i class="fa-solid fa-check"></i> Front Bumper</li>
                     <li><i class="fa-solid fa-check"></i> Headlights & Mirrors</li>
                     <li><i class="fa-solid fa-check"></i> A-Pillars</li>
                 </ul>
-                <button class="btn-glow" style="width:100%; margin-top:20px; background:var(--secondary); color:black;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
+                <button class="btn-glow" style="width:100%; margin-top:auto; background:var(--secondary); color:black;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
+            
             <div class="tilt-card price-card">
                 <h3 class="pkg-title">FULL BODY</h3>
-                <span class="pkg-sub">Ultimate Armor</span>
-                <ul class="pkg-list">
+                <span class="pkg-sub" style="margin-bottom: 5px;">Ultimate Armor</span>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0;">
                     <li><i class="fa-solid fa-check"></i> Entire Vehicle Paint</li>
                     <li><i class="fa-solid fa-check"></i> All Edges Wrapped</li>
                     <li><i class="fa-solid fa-check"></i> Complete Self-Healing</li>
                     <li><i class="fa-solid fa-check"></i> Max Resale Value</li>
                 </ul>
-                <button class="btn-glow" style="width:100%; margin-top:20px;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
+                <button class="btn-glow" style="width:100%; margin-top:auto;" onclick="document.getElementById('contact').scrollIntoView()">SELECT TIER</button>
             </div>
         </div>
 
         <div style="margin-top: 80px;"></div>
-        <h3 class="pkg-title" style="text-align: center; color: var(--secondary); margin-bottom: 40px; font-size: 1.5rem; letter-spacing: 2px;">ADDITIONAL SERVICES</h3>
-        <div class="feature-grid reveal-blur">
-            <div class="tilt-card feature-card">
-                <div class="f-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-                <h4>Paint Correction Service Full Body</h4>
-                <ul class="pkg-list" style="margin-bottom: 15px; border-top:none; padding-top:0;">
+
+        <h3 style="text-align: center; color: var(--secondary); margin-bottom: 40px; font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 2px;">PREMIUM UPGRADES</h3>
+        <div class="price-grid reveal">
+            <div class="tilt-card price-card">
+                <h3 class="pkg-title" style="font-size: 1.15rem; min-height: 55px;">Paint Correction Service Full Body</h3>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <p style="font-size: 0.95rem; color: #aaa; margin-bottom: 20px; line-height: 1.5; flex-grow: 1;">Advanced correction designed to remove swirl marks, light scratches, and restore a flawless, mirror-like finish to your vehicle.</p>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0; margin-bottom: 15px;">
                     <li><i class="fa-solid fa-check"></i> Stage 1</li>
                     <li><i class="fa-solid fa-check"></i> Stage 2</li>
                 </ul>
-                <p style="font-size: 0.85rem; color: var(--accent);"><em>(Determined onsite)</em></p>
+                <button class="btn-glow" style="width:100%; margin-top:auto;" onclick="document.getElementById('contact').scrollIntoView()">REQUEST QUOTE</button>
+                <div style="margin-top: 15px; color: var(--accent); font-size: 0.85rem; text-align: center;">(Determined onsite)</div>
             </div>
-            <div class="tilt-card feature-card">
-                <div class="f-icon"><i class="fa-solid fa-shield"></i></div>
-                <h4>Windshield Protection Film Installation from XPEL</h4>
-                <p>Specialized protective film applied to shield your windshield from rock chips, pitting, and cracks while maintaining perfect visual clarity.</p>
+
+            <div class="tilt-card price-card">
+                <h3 class="pkg-title" style="font-size: 1.15rem; min-height: 55px;">Windshield Protection Film Installation from XPEL</h3>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <p style="font-size: 0.95rem; color: #aaa; margin-bottom: 20px; line-height: 1.5; flex-grow: 1;">Specialized protective film applied to shield your windshield from rock chips, pitting, and cracks while maintaining perfect visual clarity.</p>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0; margin-bottom: 15px;">
+                    <li><i class="fa-solid fa-shield"></i> Premium Protection</li>
+                </ul>
+                <button class="btn-glow" style="width:100%; margin-top:auto;" onclick="document.getElementById('contact').scrollIntoView()">REQUEST QUOTE</button>
+                <div style="margin-top: 15px; color: transparent; font-size: 0.85rem; text-align: center; user-select: none;">-</div>
             </div>
-            <div class="tilt-card feature-card">
-                <div class="f-icon"><i class="fa-solid fa-droplet"></i></div>
-                <h4>Ceramic Coating Services with XPEL V2 Premium</h4>
-                <ul class="pkg-list" style="margin-bottom: 15px; border-top:none; padding-top:0;">
+
+            <div class="tilt-card price-card">
+                <h3 class="pkg-title" style="font-size: 1.15rem; min-height: 55px;">Ceramic Coating Services with XPEL V2 Premium</h3>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <p style="font-size: 0.95rem; color: #aaa; margin-bottom: 20px; line-height: 1.5; flex-grow: 1;">Advanced nano-ceramic protection offering unmatched gloss, supreme hydrophobic properties, and durable defense against the elements.</p>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0; margin-bottom: 15px;">
                     <li><i class="fa-solid fa-check"></i> Full Body</li>
                     <li><i class="fa-solid fa-check"></i> Glass</li>
                     <li><i class="fa-solid fa-check"></i> Rims</li>
                 </ul>
-                <p style="font-size: 0.85rem; color: var(--accent);"><em>(Pricing varies Cars/Suv/Truck)</em></p>
+                <button class="btn-glow" style="width:100%; margin-top:auto;" onclick="document.getElementById('contact').scrollIntoView()">REQUEST QUOTE</button>
+                <div style="margin-top: 15px; color: var(--accent); font-size: 0.85rem; text-align: center;">(Pricing varies Cars/Suv/Truck)</div>
             </div>
-            <div class="tilt-card feature-card">
-                <div class="f-icon"><i class="fa-solid fa-car"></i></div>
-                <h4>Auto Detailing Interior / Exterior</h4>
-                <ul class="pkg-list" style="margin-bottom: 15px; border-top:none; padding-top:0;">
+
+            <div class="tilt-card price-card">
+                <h3 class="pkg-title" style="font-size: 1.15rem; min-height: 55px;">Auto Detailing Interior / Exterior</h3>
+                <div style="height: 2px; width: 40px; background: var(--secondary); margin: 15px 0;"></div>
+                <p style="font-size: 0.95rem; color: #aaa; margin-bottom: 20px; line-height: 1.5; flex-grow: 1;">Complete interior and exterior detailing packages designed to deep clean, restore, and maintain your vehicle inside and out.</p>
+                <ul class="pkg-list" style="border-top: none; padding-top: 0; margin-bottom: 15px;">
                     <li><i class="fa-solid fa-check"></i> Engine Bay Wash</li>
                 </ul>
-                <p style="font-size: 0.85rem; color: var(--accent);"><em>(Pricing varies Cars/Suv/Truck)</em></p>
+                <button class="btn-glow" style="width:100%; margin-top:auto;" onclick="document.getElementById('contact').scrollIntoView()">REQUEST QUOTE</button>
+                <div style="margin-top: 15px; color: var(--accent); font-size: 0.85rem; text-align: center;">(Pricing varies Cars/Suv/Truck)</div>
             </div>
         </div>
     </section>
