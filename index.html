@@ -350,8 +350,7 @@
             <li><a href="#about" class="nav-link">ABOUT</a></li>
             <li><a href="#features" class="nav-link">FEATURES</a></li>
             <li><a href="#gallery" class="nav-link">GALLERY</a></li>
-            <li><a href="#services" class="nav-link">SERVICES</a></li> <!-- Changed from PRICING -->
-        </ul>
+            <li><a href="#services" class="nav-link">SERVICES</a></li> </ul>
         <button class="btn-glow" onclick="document.getElementById('contact').scrollIntoView()">REQUEST QUOTE</button>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
     </nav>
@@ -361,8 +360,7 @@
             <a href="#about" onclick="toggleMobileMenu()">ABOUT</a>
             <a href="#features" onclick="toggleMobileMenu()">FEATURES</a>
             <a href="#gallery" onclick="toggleMobileMenu()">GALLERY</a>
-            <a href="#services" onclick="toggleMobileMenu()">SERVICES</a> <!-- Changed from PRICING -->
-            <a href="#contact" onclick="toggleMobileMenu()" style="color:var(--secondary);">REQUEST QUOTE</a>
+            <a href="#services" onclick="toggleMobileMenu()">SERVICES</a> <a href="#contact" onclick="toggleMobileMenu()" style="color:var(--secondary);">REQUEST QUOTE</a>
         </div>
     </div>
 
@@ -534,7 +532,6 @@
         </div>
     </section>
 
-    <!-- ENTIRE SERVICES SECTION (Replaced "PRICING") -->
     <section id="services" class="section-pad" style="background: #080808;">
         <div class="section-header reveal-blur">
             <h2>OUR <span>SERVICES</span></h2>
@@ -584,24 +581,35 @@
         <div class="feature-grid reveal-blur">
             <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-                <h4>Full Body Paint Correction Stage 1 & Stage 2</h4>
-                <p>Advanced correction designed to remove swirl marks, light scratches, and restore a flawless, mirror-like finish to your vehicle.</p>
-            </div>
-            <div class="tilt-card feature-card">
-                <div class="f-icon"><i class="fa-solid fa-droplet"></i></div>
-                <h4>Ceramic Coating</h4>
-                <p>Advanced nano-ceramic protection offering unmatched gloss, supreme hydrophobic properties, and durable defense against the elements.</p>
+                <h4>Paint Correction Service Full Body</h4>
+                <ul class="pkg-list" style="margin-bottom: 15px; border-top:none; padding-top:0;">
+                    <li><i class="fa-solid fa-check"></i> Stage 1</li>
+                    <li><i class="fa-solid fa-check"></i> Stage 2</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: var(--accent);"><em>(Determined onsite)</em></p>
             </div>
             <div class="tilt-card feature-card">
                 <div class="f-icon"><i class="fa-solid fa-shield"></i></div>
-                <h4>Windshield Protection Film Application</h4>
+                <h4>Windshield Protection Film Installation from XPEL</h4>
                 <p>Specialized protective film applied to shield your windshield from rock chips, pitting, and cracks while maintaining perfect visual clarity.</p>
             </div>
-            <div class="tilt-card feature-card" style="border: 1px dashed rgba(255,255,255,0.2);">
-                <div class="f-icon" style="color: #666;"><i class="fa-solid fa-car"></i></div>
-                <h4 style="color: #ccc;">Exterior / Interior Auto Detailing</h4>
-                <p style="color: var(--accent); font-family: 'Orbitron'; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 10px;">SERVICES SOON TO COME</p>
-                <p style="color: #888;">Complete interior and exterior detailing packages designed to deep clean, restore, and maintain your vehicle inside and out.</p>
+            <div class="tilt-card feature-card">
+                <div class="f-icon"><i class="fa-solid fa-droplet"></i></div>
+                <h4>Ceramic Coating Services with XPEL V2 Premium</h4>
+                <ul class="pkg-list" style="margin-bottom: 15px; border-top:none; padding-top:0;">
+                    <li><i class="fa-solid fa-check"></i> Full Body</li>
+                    <li><i class="fa-solid fa-check"></i> Glass</li>
+                    <li><i class="fa-solid fa-check"></i> Rims</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: var(--accent);"><em>(Pricing varies Cars/Suv/Truck)</em></p>
+            </div>
+            <div class="tilt-card feature-card">
+                <div class="f-icon"><i class="fa-solid fa-car"></i></div>
+                <h4>Auto Detailing Interior / Exterior</h4>
+                <ul class="pkg-list" style="margin-bottom: 15px; border-top:none; padding-top:0;">
+                    <li><i class="fa-solid fa-check"></i> Engine Bay Wash</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: var(--accent);"><em>(Pricing varies Cars/Suv/Truck)</em></p>
             </div>
         </div>
     </section>
